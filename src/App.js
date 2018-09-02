@@ -66,10 +66,27 @@ class App extends React.Component {
     const path = props.location.pathname;
     const note = await noter.byPath(path);
     if (note) {
-      console.info(note);
+      if (note.type === 'filter') {
+        this.fetchPagedNotes(note);
+      } else {
+        console.log('render note', note);
+      }
     } else {
       console.info(path + ' not found');
       this.setState({pageType: PageType.NotFound});
+    }
+  }
+
+  fetchPagedNotes = async (filterNote) => {
+    const pagedNotes = await noter.byQuery(filterNote.filter);
+    if (pagedNotes) {
+      console.log(pagedNotes);
+      this.setState({
+        pageType: PageType.Collection,
+        pagedNotes: pagedNotes,
+      });
+    } else {
+      console.error('failed to fetch notes using', filterNote);
     }
   }
 }

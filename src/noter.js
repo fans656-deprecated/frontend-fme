@@ -30,8 +30,19 @@ async function byPath(path) {
   }
 }
 
+async function byQuery(query) {
+  const res = await api.post('/noter/query', query);
+  if (res.status === 200) {
+    return await res.json();
+  } else {
+    console.log(res.status, await res.text());
+    return null;
+  }
+}
+
 const noter = {
   byPath: byPath,
+  byQuery: byQuery,
 };
 
 export default noter;
