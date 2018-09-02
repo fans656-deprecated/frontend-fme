@@ -9,6 +9,13 @@ const styles = {
     boxShadow: '0 0 5px #333',
   },
 
+  centered: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+
   combined: (...styles) => {
     return Object.assign({}, ...styles);
   },
