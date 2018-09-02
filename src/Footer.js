@@ -25,6 +25,7 @@ export default class Footer extends Component {
 const footerStyle = styles.combined(styles.headerFooter, {
   display: 'flex',
   padding: '0 1em',
+  justifyContent: 'center',
 });
 
 const centerStyle = {

@@ -1,5 +1,9 @@
-html, body, #root, .App, .frame {
+html, body, #root, .App {
   height: 100%;
+}
+
+.frame {
+  min-height: 100%;
 }
 
 body {
