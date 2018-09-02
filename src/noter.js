@@ -20,6 +20,10 @@ async function byId(idStr) {
 }
 
 async function byPath(path) {
+  const predefinedNote = defaultNotes.predefined[path];
+  if (predefinedNote) {
+    return predefinedNote;
+  }
   const res = await api.post('/noter/query', {
     'aliases': {'$eq': path},
   });

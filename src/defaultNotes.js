@@ -1,3 +1,5 @@
+import helpNote from './helpNote';
+
 const defaultNotes = {
   '/': {
     type: 'filter',
@@ -14,6 +16,10 @@ const defaultNotes = {
     links: [
       {name: 'Home', href: '/'},
     ],
+  },
+
+  predefined: {
+    '/help': helpNote,
   },
 };
 

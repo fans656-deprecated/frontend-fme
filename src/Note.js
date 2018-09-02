@@ -22,10 +22,16 @@ export default class Note extends React.Component {
   }
 
   renderNote(note, style) {
+    let contentText = null;
+    if (note.content) {
+      contentText = note.content;
+    } else {
+      contentText = JSON.stringify(note, null, 2);
+    }
     return (
       <div className="note" style={style}>
-        <pre>
-          {JSON.stringify(note, null, 2)}
+        <pre style={{fontFamily: 'Consolas'}}>
+          {contentText}
         </pre>
         <div className="actions left-right" style={actionsStyle}>
           <div className="left">
