@@ -54,7 +54,7 @@ const baseStyle = {
 
 const singleStyle = styles.combined(baseStyle, {
   margin: '2rem auto',
-  width: '55rem',
+  width: '50rem',
 });
 
 const actionsStyle = {
