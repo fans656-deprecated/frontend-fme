@@ -1,11 +1,29 @@
 import React from 'react';
+import { Display } from './constants';
 import styles from './styles';
 
 export default class NoteList extends React.Component {
   render() {
     const note = this.props.note;
+    switch (this.props.display) {
+      case Display.InList:
+        return this.renderInList(note);
+      default:
+        return this.renderSingle(note);
+    }
+  }
+
+  renderInList(note) {
+    return this.renderNote(note, baseStyle);
+  }
+
+  renderSingle(note) {
+    return this.renderNote(note, singleStyle);
+  }
+
+  renderNote(note, style) {
     return (
-      <div className="note" style={inListNoteStyle}>
+      <div className="note" style={style}>
         <pre>
           {JSON.stringify(note, null, 2)}
         </pre>
@@ -23,7 +41,7 @@ export default class NoteList extends React.Component {
   }
 }
 
-const inListNoteStyle = {
+const baseStyle = {
   background: 'white',
   boxShadow: '0 0 5px #ddd',
   fontFamily: 'Consolas',
@@ -33,6 +51,11 @@ const inListNoteStyle = {
   width: '45rem',
   marginBottom: '1rem',
 };
+
+const singleStyle = styles.combined(baseStyle, {
+  margin: '2rem auto',
+  width: '55rem',
+});
 
 const actionsStyle = {
   color: '#ccc',

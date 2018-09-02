@@ -1,6 +1,24 @@
 import api from './api';
 import defaultNotes from './defaultNotes';
 
+async function byId(idStr) {
+  const id = parseInt(idStr, 10);
+  const res = await api.post('/noter/query', {
+    'id': id,
+  });
+  if (res.status === 200) {
+    const pagedNotes = await res.json();
+    if (pagedNotes.total) {
+      return pagedNotes.notes[0];
+    } else {
+      return null;
+    }
+  } else {
+    console.error(res.status_code, await res.text());
+    return null;
+  }
+}
+
 async function byPath(path) {
   const res = await api.post('/noter/query', {
     'aliases': {'$eq': path},
@@ -41,6 +59,7 @@ async function byQuery(query) {
 }
 
 const noter = {
+  byId: byId,
   byPath: byPath,
   byQuery: byQuery,
 };

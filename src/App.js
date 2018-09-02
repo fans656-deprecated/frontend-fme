@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import Frame from './Frame';
 import NotFound from './NotFound';
 import NoteList from './NoteList';
+import Note from './Note';
 import noter from './noter';
 import { PageType } from './constants';
 
@@ -33,6 +34,8 @@ class App extends React.Component {
         return this.renderNotFound();
       case PageType.NoteList:
         return this.renderNoteList();
+      case PageType.Note:
+        return this.renderNote();
       default:
         return this.renderDefault();
     }
@@ -46,6 +49,10 @@ class App extends React.Component {
     return this.renderFramed(
       <NoteList pagedNotes={this.state.pagedNotes}/>
     );
+  }
+
+  renderNote() {
+    return this.renderFramed(<Note note={this.state.note}/>);
   }
 
   renderDefault() {
@@ -73,12 +80,17 @@ class App extends React.Component {
 
   fetchNote = async (props) => {
     const path = props.location.pathname;
-    const note = await noter.byPath(path);
+    let note = null;
+    if (path.match(/\/note\/\d+/)) {
+      note = await noter.byId(path.match(/\/note\/(\d+)/)[1]);
+    } else {
+      note = await noter.byPath(path);
+    }
     if (note) {
       if (note.type === 'filter') {
         this.fetchPagedNotes(note);
       } else {
-        console.log('render note', note);
+        this.setState({pageType: PageType.Note, note: note});
       }
     } else {
       console.info(path + ' not found');
