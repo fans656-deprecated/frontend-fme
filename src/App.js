@@ -1,9 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import qs from 'qs';
 import Frame from './Frame';
 import NotFound from './NotFound';
 import NoteList from './NoteList';
 import Note from './Note';
+import EditNote from './EditNote';
 import noter from './noter';
 import { PageType } from './constants';
 
@@ -36,6 +38,8 @@ class App extends React.Component {
         return this.renderNoteList();
       case PageType.Note:
         return this.renderNote();
+      case PageType.EditNote:
+        return this.renderEditNote();
       default:
         return this.renderDefault();
     }
@@ -53,6 +57,10 @@ class App extends React.Component {
 
   renderNote() {
     return this.renderFramed(<Note note={this.state.note}/>);
+  }
+
+  renderEditNote() {
+    return this.renderFramed(<EditNote note={this.state.note}/>);
   }
 
   renderDefault() {
@@ -87,10 +95,14 @@ class App extends React.Component {
       note = await noter.byPath(path);
     }
     if (note) {
-      if (note.type === 'filter') {
-        this.fetchPagedNotes(note);
+      if (this.isEditing(props)) {
+        this.setState({pageType: PageType.EditNote, note: note});
       } else {
-        this.setState({pageType: PageType.Note, note: note});
+        if (note.type === 'filter') {
+          this.fetchPagedNotes(note);
+        } else {
+          this.setState({pageType: PageType.Note, note: note});
+        }
       }
     } else {
       console.info(path + ' not found');
@@ -109,6 +121,12 @@ class App extends React.Component {
     } else {
       console.error('failed to fetch notes using', filterNote);
     }
+  }
+
+  isEditing = (props) => {
+    const search = props.location.search;
+    const args = qs.parse(search.substring(1));
+    return 'e' in args || 'edit' in args;
   }
 }
 

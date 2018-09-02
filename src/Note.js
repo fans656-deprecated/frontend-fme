@@ -2,7 +2,7 @@ import React from 'react';
 import { Display } from './constants';
 import styles from './styles';
 
-export default class NoteList extends React.Component {
+export default class Note extends React.Component {
   render() {
     const note = this.props.note;
     switch (this.props.display) {
