@@ -23,3 +23,8 @@ a {
 a:active {
   color: inherit;
 }
+
+.left-right {
+  display: flex;
+  justify-content: space-between;
+}
