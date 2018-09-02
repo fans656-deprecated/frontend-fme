@@ -1,13 +1,16 @@
 const defaultNotes = {
   '/': {
-    aliases: ['/'],
     type: 'filter',
+    aliases: ['/'],
+
     filter: {
     },
   },
 
   '/nav': {
+    type: 'nav',
     aliases: ['/nav'],
+
     links: [
       {name: 'Home', href: '/'},
     ],

@@ -1,4 +1,4 @@
 export const PageType = {
   NotFound: 'not found',
-  Collection: 'collection',
+  NoteList: 'note list',
 };

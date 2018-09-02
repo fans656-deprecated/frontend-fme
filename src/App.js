@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Frame from './Frame';
 import NotFound from './NotFound';
+import NoteList from './NoteList';
 import noter from './noter';
 import { PageType } from './constants';
 
@@ -30,6 +31,8 @@ class App extends React.Component {
     switch (this.state.pageType) {
       case PageType.NotFound:
         return this.renderNotFound();
+      case PageType.NoteList:
+        return this.renderNoteList();
       default:
         return this.renderDefault();
     }
@@ -37,6 +40,12 @@ class App extends React.Component {
 
   renderNotFound() {
     return this.renderFramed(<NotFound/>);
+  }
+
+  renderNoteList() {
+    return this.renderFramed(
+      <NoteList pagedNotes={this.state.pagedNotes}/>
+    );
   }
 
   renderDefault() {
@@ -82,7 +91,7 @@ class App extends React.Component {
     if (pagedNotes) {
       console.log(pagedNotes);
       this.setState({
-        pageType: PageType.Collection,
+        pageType: PageType.NoteList,
         pagedNotes: pagedNotes,
       });
     } else {
