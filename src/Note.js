@@ -5,9 +5,9 @@ export default class NoteList extends React.Component {
   render() {
     const note = this.props.note;
     return (
-        <pre style={inListStyle}>
-          {JSON.stringify(note, null, 2)}
-        </pre>
+      <pre style={inListStyle}>
+        {JSON.stringify(note, null, 2)}
+      </pre>
     );
   }
 }
