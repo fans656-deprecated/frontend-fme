@@ -1,11 +1,15 @@
-import conf from './conf';
-
 const styles = {
+  darkBackground: '#333',
+  darkForeground: '#eee',
+  headerFooterHeight: '3em',
+};
+
+Object.assign(styles, {
   headerFooter: {
-    backgroundColor: conf.darkBackground,
-    color: conf.darkForeground,
-    height: conf.headerFooterHeight,
-    lineHeight: conf.headerFooterHeight,
+    backgroundColor: styles.darkBackground,
+    color: styles.darkForeground,
+    height: styles.headerFooterHeight,
+    lineHeight: styles.headerFooterHeight,
     boxShadow: '0 0 5px #333',
   },
 
@@ -19,6 +23,6 @@ const styles = {
   combined: (...styles) => {
     return Object.assign({}, ...styles);
   },
-};
+});
 
 export default styles;

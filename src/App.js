@@ -10,10 +10,20 @@ class App extends React.Component {
     pageType: null,
     note: null,
     pagedNotes: null,
+    navNote: null,
   }
 
-  componentDidMount = async () => {
-    await this.fetchNote();
+  componentDidMount() {
+    this.init(this.props);
+  }
+
+  componentWillReceiveProps(props) {
+    this.init(props);
+  }
+
+  init(props) {
+    this.fetchNavNote();
+    this.fetchNote(props);
   }
 
   render() {
@@ -34,15 +44,26 @@ class App extends React.Component {
   }
 
   renderFramed(content) {
-    return this.renderApp(<Frame>{content}</Frame>);
+    return this.renderApp(
+      <Frame navNote={this.state.navNote}>
+        {content}
+      </Frame>
+    );
   }
 
   renderApp(content) {
     return <div className="App">{content}</div>;
   }
 
-  fetchNote = async () => {
-    const path = this.props.location.pathname;
+  fetchNavNote = async () => {
+    const note = await noter.byPath('/nav');
+    if (note) {
+      this.setState({navNote: note});
+    }
+  }
+
+  fetchNote = async (props) => {
+    const path = props.location.pathname;
     const note = await noter.byPath(path);
     if (note) {
       console.info(note);
