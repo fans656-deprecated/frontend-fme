@@ -1,3 +1,4 @@
+import qs from 'query-string';
 import api from './api';
 import defaultNotes from './defaultNotes';
 
@@ -52,8 +53,12 @@ async function byPath(path) {
   }
 }
 
-async function byQuery(query) {
-  const res = await api.post('/noter/query', query);
+async function byQuery(query, args) {
+  let url = '/noter/query';
+  if (args) {
+    url += '?' + qs.stringify(args);
+  }
+  const res = await api.post(url, query);
   if (res.status === 200) {
     return await res.json();
   } else {

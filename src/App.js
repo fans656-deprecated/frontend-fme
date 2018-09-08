@@ -99,7 +99,8 @@ class App extends React.Component {
         this.setState({pageType: PageType.EditNote, note: note});
       } else {
         if (note.type === 'filter') {
-          this.fetchPagedNotes(note);
+          const args = qs.parse(props.location.search.substring(1));
+          this.fetchPagedNotes(note, {page: args.page});
         } else {
           this.setState({pageType: PageType.Note, note: note});
         }
@@ -110,10 +111,13 @@ class App extends React.Component {
     }
   }
 
-  fetchPagedNotes = async (filterNote) => {
-    const pagedNotes = await noter.byQuery(filterNote.filter);
+  fetchPagedNotes = async (filterNote, {page}) => {
+    page = parseInt(page, 10);
+    if (!page) {
+      page = 1;
+    }
+    const pagedNotes = await noter.byQuery(filterNote.filter, {page: page});
     if (pagedNotes) {
-      console.log(pagedNotes);
       this.setState({
         pageType: PageType.NoteList,
         pagedNotes: pagedNotes,
