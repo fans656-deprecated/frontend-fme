@@ -1,5 +1,6 @@
 import React from 'react';
 import Note from './Note';
+import Pagination from './Pagination';
 import { Display } from './constants';
 
 export default class NoteList extends React.Component {
@@ -14,6 +15,11 @@ export default class NoteList extends React.Component {
         <div className="notes">
           {noteComps}
         </div>
+        <Pagination
+          page={pagedNotes.page}
+          size={pagedNotes.size}
+          total={pagedNotes.total}
+        />
       </div>
     );
   }

@@ -1,0 +1,29 @@
+.pagination {
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.pagination .icon.page {
+  display: flex;
+  align-items: center;
+}
+
+.pagination .page {
+  font-size: .9em;
+  color: #333;
+  display: inline-block;
+  padding: .5em .8em;
+  height: 1em;
+  min-width: 1.5em;
+  text-align: center;
+}
+
+.pagination .page:hover {
+  background: #ccc;
+}
+
+.pagination .page.current {
+  background: steelblue;
+  color: white;
+}
