@@ -22,25 +22,53 @@ export default class Note extends React.Component {
   }
 
   renderNote(note, style) {
+    const title = this.renderTitle(note);
+    if (title) {
+      style = styles.combined(style, {paddingTop: '1rem'});
+    }
+    return (
+      <div className="note" style={style}>
+        {title}
+        {this.renderContent(note)}
+        {this.renderActions(note)}
+      </div>
+    );
+  }
+
+  renderTitle = (note) => {
+    return note.title ? <h2>{note.title}</h2> : null;
+  }
+
+  renderContent = (note) => {
     let contentText = null;
     if (note.content) {
       contentText = note.content;
     } else {
       contentText = JSON.stringify(note, null, 2);
     }
+    switch (note.type) {
+      case 'html':
+        return (
+          <div dangerouslySetInnerHTML={{__html: contentText}}/>
+        );
+      default:
+        return (
+          <pre style={{fontFamily: 'Consolas'}}>
+            {contentText}
+          </pre>
+        );
+    }
+  }
+
+  renderActions = (note) => {
     return (
-      <div className="note" style={style}>
-        <pre style={{fontFamily: 'Consolas'}}>
-          {contentText}
-        </pre>
-        <div className="actions left-right" style={actionsStyle}>
-          <div className="left">
-          </div>
-          <div className="right">
-            <a href={`/note/${note.id}`} target="_blank">
-              {note.ctime}
-            </a>
-          </div>
+      <div className="actions left-right" style={actionsStyle}>
+        <div className="left">
+        </div>
+        <div className="right">
+          <a href={`/note/${note.id}`} target="_blank">
+            {note.ctime}
+          </a>
         </div>
       </div>
     );
@@ -53,9 +81,10 @@ const baseStyle = {
   fontFamily: 'Consolas',
   fontSize: '.9rem',
   color: '#333',
-  padding: '2em',
-  width: '45rem',
-  marginBottom: '1rem',
+  padding: '3rem',
+  paddingBottom: '2rem',
+  width: '40rem',
+  margin: '1rem',
 };
 
 const singleStyle = styles.combined(baseStyle, {
@@ -64,5 +93,6 @@ const singleStyle = styles.combined(baseStyle, {
 });
 
 const actionsStyle = {
+  marginTop: '1rem',
   color: '#ccc',
 };
