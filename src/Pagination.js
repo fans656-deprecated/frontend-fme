@@ -1,5 +1,6 @@
 import React from 'react';
 import qs from 'query-string';
+import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { Icon } from 'react-icons-kit';
 import { ic_first_page } from 'react-icons-kit/md/ic_first_page';
@@ -87,6 +88,9 @@ function getPageLink(page) {
   const path = window.location.pathname;
   const search = window.location.search;
   const args = qs.parse(search.substring(1));
-  const newArgs = Object.assign({}, args, {page: page});
-  return path + '?' + qs.stringify(newArgs);
+  let newArgs = Object.assign({}, args, {page: page});
+  if (page === 1) {
+    delete newArgs.page;
+  }
+  return path + (_.isEmpty(newArgs) ? '' : '?' + qs.stringify(newArgs));
 }
