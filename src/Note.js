@@ -1,4 +1,5 @@
 import React from 'react';
+import dateFormat from 'dateformat';
 import { Display } from './constants';
 import styles from './styles';
 import './css/Note.css';
@@ -64,13 +65,21 @@ export default class Note extends React.Component {
   }
 
   renderActions = (note) => {
+    const ctime = new Date(note.ctime)
+    const ctimeFull = dateFormat(ctime, 'yyyy-mm-dd HH:MM:ss');
+    const ctimeSimple = (
+      this.props.display === Display.InList ?
+      dateFormat(ctime, 'yyyy-mm-dd') : ctimeFull
+    );
     return (
       <div className="actions left-right" style={actionsStyle}>
         <div className="left">
         </div>
         <div className="right">
-          <a href={`/note/${note.id}`} target="_blank">
-            {note.ctime}
+          <a href={`/note/${note.id}`} target="_blank"
+            title={ctimeFull}
+          >
+            {ctimeSimple}
           </a>
         </div>
       </div>
