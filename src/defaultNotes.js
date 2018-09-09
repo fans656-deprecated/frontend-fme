@@ -3,7 +3,7 @@ import helpNote from './helpNote';
 const defaultNotes = {
   '/': {
     type: 'filter',
-    aliases: ['/'],
+    url: '/',
 
     filter: {
     },
@@ -11,7 +11,7 @@ const defaultNotes = {
 
   '/nav': {
     type: 'nav',
-    aliases: ['/nav'],
+    url: '/nav',
 
     links: [
       {name: 'Home', href: '/'},

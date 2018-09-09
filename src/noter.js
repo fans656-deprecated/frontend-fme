@@ -26,7 +26,7 @@ async function byPath(path) {
     return predefinedNote;
   }
   const res = await api.post('/noter/query', {
-    'aliases': {'$eq': path},
+    'url': path,
   });
   if (res.status === 200) {
     const pagedNotes = await res.json();
