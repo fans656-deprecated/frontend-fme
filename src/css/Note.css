@@ -1,0 +1,11 @@
+.note {
+  overflow-wrap: break-word;
+}
+
+.note .content a {
+  color: steelblue;
+}
+
+.note img {
+  max-width: 100%;
+}

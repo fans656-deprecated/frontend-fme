@@ -1,6 +1,7 @@
 import React from 'react';
 import { Display } from './constants';
 import styles from './styles';
+import './css/Note.css';
 
 export default class Note extends React.Component {
   render() {
@@ -49,7 +50,9 @@ export default class Note extends React.Component {
     switch (note.type) {
       case 'html':
         return (
-          <div dangerouslySetInnerHTML={{__html: contentText}}/>
+          <div className="content"
+            dangerouslySetInnerHTML={{__html: contentText}}
+          />
         );
       default:
         return (
